@@ -22,7 +22,7 @@ class Train():
 
     def train(self, epoch, lr):
         optimizer = optim.Adam(self.net.parameters(), lr)
-        scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epoch, eta_min=0.00001)
+        #scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epoch, eta_min=0.00001)
         avg_loss = 0
         
         for i in range(epoch):
@@ -31,11 +31,12 @@ class Train():
             avg_loss = avg_loss + float(loss.item())
             loss.backward()
             optimizer.step()
-            scheduler.step()
+         #   scheduler.step()
             
-            if i % 500 == 0 and i != 0:
-                loss = avg_loss/500
-                print("Epoch {} - lr {} -  loss: {}".format(int(i/500), lr, loss))
+            if i % 50 == 0 and i != 0:
+                loss = avg_loss/50
+                if i % 5000 == 0 and i != 0:
+                    print("Epoch {} - lr {} -  loss: {}".format(int(i), lr, loss))
                 avg_loss = 0
 
                 error = self.model.loss_func(2**8)

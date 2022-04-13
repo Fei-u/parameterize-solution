@@ -1,6 +1,6 @@
 from libs import *
 
-
+import torch.nn
 
 class equation():
     def __init__(self, net, te, xe, ye):
@@ -20,7 +20,7 @@ class equation():
         x_boundary_2 = torch.cat((torch.rand([size, 1]) * te, torch.ones([size, 1]) * xe, torch.rand(size, 1) * ye), dim=1)
         x_boundary_3 = torch.cat((torch.rand([size, 1]) * te, torch.rand([size, 1]) * xe, torch.ones(size, 1) * ye), dim=1)
         x_boundary_4 = torch.cat((torch.rand([size, 1]) * te, torch.rand([size, 1]) * xe, torch.zeros(size, 1)), dim=1)
-        x,x_initial,x_boundary_1,x_boundary_2,x_boundary_3,x_boundary_4.to(device)
+        x,x_initial,x_boundary_1,x_boundary_2,x_boundary_3,x_boundary_4=x,x_initial,x_boundary_1,x_boundary_2,x_boundary_3,x_boundary_4.to(device)
         return x, x_initial, x_boundary_1, x_boundary_2, x_boundary_3, x_boundary_4
 
     def loss_func(self, size=2**8):

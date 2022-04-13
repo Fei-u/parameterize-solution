@@ -23,9 +23,9 @@ from NNs import FNN
 
 layer_size = [3] + [100]*5 + [1]
 net = FNN.net(layer_size=layer_size)
+net.to(device)
 
 model = Heat.equation(net, 4, 1, 1)
-model.to(device)
 
 Train = Train(net, model, batch_size=2**8)
 Train.train(epoch=10**5, lr=0.0001)

@@ -14,13 +14,12 @@ class equation():
         xe = self.xe
         ye = self.ye
         
-        x = torch.cat((torch.rand([size, 1]) * te, torch.rand([size, 1]) * xe, torch.rand([size, 1]) * ye), dim=1)
-        x_initial = torch.cat((torch.zeros(size, 1), torch.rand([size, 1]) * xe, torch.rand([size, 1]) * ye), dim=1)
-        x_boundary_1 = torch.cat((torch.rand([size, 1]) * te, torch.zeros([size, 1]), torch.rand(size, 1) * ye), dim=1)
-        x_boundary_2 = torch.cat((torch.rand([size, 1]) * te, torch.ones([size, 1]) * xe, torch.rand(size, 1) * ye), dim=1)
-        x_boundary_3 = torch.cat((torch.rand([size, 1]) * te, torch.rand([size, 1]) * xe, torch.ones(size, 1) * ye), dim=1)
-        x_boundary_4 = torch.cat((torch.rand([size, 1]) * te, torch.rand([size, 1]) * xe, torch.zeros(size, 1)), dim=1)
-        x,x_initial,x_boundary_1,x_boundary_2,x_boundary_3,x_boundary_4=x,x_initial,x_boundary_1,x_boundary_2,x_boundary_3,x_boundary_4.to(device)
+        x = torch.cat((torch.rand([size, 1]) * te, torch.rand([size, 1]) * xe, torch.rand([size, 1]) * ye), dim=1).to(device)
+        x_initial = torch.cat((torch.zeros(size, 1), torch.rand([size, 1]) * xe, torch.rand([size, 1]) * ye), dim=1).to(device)
+        x_boundary_1 = torch.cat((torch.rand([size, 1]) * te, torch.zeros([size, 1]), torch.rand(size, 1) * ye), dim=1).to(device)
+        x_boundary_2 = torch.cat((torch.rand([size, 1]) * te, torch.ones([size, 1]) * xe, torch.rand(size, 1) * ye), dim=1).to(device)
+        x_boundary_3 = torch.cat((torch.rand([size, 1]) * te, torch.rand([size, 1]) * xe, torch.ones(size, 1) * ye), dim=1).to(device)
+        x_boundary_4 = torch.cat((torch.rand([size, 1]) * te, torch.rand([size, 1]) * xe, torch.zeros(size, 1)), dim=1).to(device)
         return x, x_initial, x_boundary_1, x_boundary_2, x_boundary_3, x_boundary_4
 
     def loss_func(self, size=2**8):
@@ -28,7 +27,7 @@ class equation():
         x, x_initial, x_boundary_1, x_boundary_2, x_boundary_3, x_boundary_4 = self.sample(size=size)
         x = Variable(x, requires_grad=True)
         
-        d = torch.autograd.grad(self.net(x), x, grad_outputs=torch.ones_like(self.net(x)), create_graph=True)
+        d = torch.autograd.grad(self.net(x), x, grad_outputs=torch.ones_like(self.net(x)), create_graph=True,)
         dt = d[0][:, 0].reshape(-1, 1)  # transform the vector into a column vector
         dx = d[0][:, 1].reshape(-1, 1)
         dy = d[0][:, 2].reshape(-1, 1)

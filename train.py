@@ -1,5 +1,6 @@
 from numpy import minimum
 from libs import *
+from tqdm import tqdm, trange
 
 """_summary_
     the train process of NN
@@ -25,7 +26,7 @@ class Train():
         #scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epoch, eta_min=0.00001)
         avg_loss = 0
         
-        for i in range(epoch):
+        for i in tqdm(range(epoch)):
             optimizer.zero_grad()
             loss = self.model.loss_func(self.batch_size)
             avg_loss = avg_loss + float(loss.item())

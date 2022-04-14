@@ -48,4 +48,4 @@ class equation():
         bd_up_error = (self.net(x_boundary_3)) ** 2
         bd_down_error = (self.net(x_boundary_4)) ** 2
 
-        return torch.mean(diff_error + init_error + bd_left_error + bd_right_error + bd_up_error + bd_down_error)
+        return torch.mean(diff_error + init_error + bd_left_error + bd_right_error + bd_up_error + bd_down_error).to(device="cpu")

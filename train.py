@@ -1,6 +1,7 @@
 from numpy import minimum
 from libs import *
-from tqdm import tqdm, trange
+from tqdm import tqdm
+from time import sleep
 
 """_summary_
     the train process of NN
@@ -24,24 +25,19 @@ class Train():
     def train(self, epoch, lr):
         optimizer = optim.Adam(self.net.parameters(), lr)
         #scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epoch, eta_min=0.00001)
-        avg_loss = 0
+        t = tqdm(range(epoch))
         
-        for i in tqdm(range(epoch)):
+        for i in t:
             optimizer.zero_grad()
             loss = self.model.loss_func(self.batch_size)
-            avg_loss = avg_loss + float(loss.item())
             loss.backward()
             optimizer.step()
          #   scheduler.step()
+         
+            t.set_postfix(loss=format(loss,'.3f'))
             
-            if i % 50 == 0 and i != 0:
-                loss = avg_loss/50
-                if i % 5000 == 0 and i != 0:
-                    print("Epoch {} - lr {} -  loss: {}".format(int(i), lr, loss))
-                avg_loss = 0
-
-                error = self.model.loss_func(2**8)
-                self.errors.append(error.detach())
+            error = self.model.loss_func(2**8)
+            self.errors.append(error.detach())
 
     def get_errors(self):
         return self.errors

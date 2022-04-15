@@ -1,7 +1,5 @@
 from libs import *
 
-import random
-import os
 
 def seed_torch(seed=1029):
 	random.seed(seed)

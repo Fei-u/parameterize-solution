@@ -6,6 +6,8 @@ import torch.optim as optim
 from torch.autograd import Variable
 import torch.nn.functional as F
 import collections
+import random
+import os
 
 """conda support"""
 

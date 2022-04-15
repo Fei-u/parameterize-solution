@@ -2,9 +2,11 @@ from libs import *
 from train import *
 from PDEs import Heat
 from plot import *
-
+import seed
 from NNs import FNN
 from NNs import ResNN_F
+
+seed.seed_torch()
 
 layer_size = [3] + [100]*5 + [1]
 net_1 = FNN.net(layer_size=layer_size)

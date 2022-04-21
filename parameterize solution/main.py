@@ -1,4 +1,4 @@
-from libs import *
+from all_libs import *
 from train import *
 from PDEs import Heat
 from plot import *
@@ -8,7 +8,7 @@ from NNs import ResNN_F
 
 seed.seed_torch()
 
-layer_size = [3] + [100]*5 + [1]
+layer_size = [3] + [10]*5 + [1]
 net_1 = FNN.net(layer_size=layer_size)
 net_1.to(device)
 
@@ -23,7 +23,7 @@ errors_1 = Train_1.get_errors()
 error_plt(errors_1, 1)
 
 
-net_2 = ResNN_F.net(3, ResNN_F.basic_block, 100)
+net_2 = ResNN_F.net(3, ResNN_F.basic_block, 10)
 #收敛慢，震荡？？
 net_2.to(device)
 

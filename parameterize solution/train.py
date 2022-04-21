@@ -1,5 +1,5 @@
 from numpy import minimum
-from libs import *
+from all_libs import *
 from tqdm import tqdm
 from time import sleep
 
